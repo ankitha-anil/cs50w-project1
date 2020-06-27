@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, render_template, request,jsonify
+from flask import Flask, session, render_template, request,jsonify, url_for, redirect
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -8,11 +8,6 @@ import requests
 import sys
 
 app = Flask(__name__)
-
-import logging
-
-app.logger.addHandler(logging.StreamHandler(sys.stdout))
-app.logger.setLevel(logging.ERROR)
 
 if __name__ == '__main__':
     app.run()
@@ -33,7 +28,7 @@ engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 
-@app.route("/")
+@app.route("/login")
 def login():
     return render_template("login.html")
     
@@ -58,7 +53,7 @@ def success():
     db.commit()
     return render_template("register.html",i=2)
     
-@app.route("/home", methods=["POST","GET"])
+@app.route("/", methods=["POST", "GET"])
 def home():
     if request.method=="POST":
         session["username"]= request.form.get("username")
@@ -66,6 +61,9 @@ def home():
         
         if db.execute("SELECT * FROM users WHERE username = :username AND password = :password", {"username": session["username"], "password": session["password"]}).rowcount == 0:
             return render_template("login.html",i=1)
+        
+    if session.get("username") is None:
+        return redirect(url_for('login'))
             
     name = db.execute("SELECT first_name,last_name, username FROM users WHERE username = :username AND password = :password", {"username": session["username"], "password": session["password"]}).fetchone()
     db.commit()
