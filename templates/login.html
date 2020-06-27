@@ -1,0 +1,93 @@
+{% extends "layout1.html" %}
+
+{% block head  %} Login {% endblock %}
+
+{% block body %}
+
+    {% if i==1 %}
+
+        <style>
+            .error{
+                margin:auto;
+                margin-left:30%;
+                margin-right:30%;
+                margin-top:15%;
+                background:rgba(64,64,64,0.8);
+                padding:3%;
+                color:white;
+                border-radius: 10px;
+            }
+        a{
+            color:#99ccff;
+        }
+        .error a:hover{
+                text-decoration: none;
+                color:#ffccee;
+            }
+
+        </style>
+        <div class="error">
+            <h1> Invalid Username or Password</h1>
+            <a href="{{url_for('login')}}"> Press here to try again. </a>
+        </div>
+
+    {% elif i==2 %}
+        <style>
+            .success{
+                margin:auto;
+                margin-left:30%;
+                margin-right:30%;
+                margin-top:15%;
+                background:rgba(64,64,64,0.8);
+                padding:3%;
+                color:white;
+                border-radius: 10px;
+            }
+        a{
+            color:#99ccff;
+        }
+        .success a:hover{
+                text-decoration: none;
+                color:#ffccee;
+            }
+
+        </style>
+        <div class="success">
+            <h1> You have logged out!</h1>
+            <a href="{{url_for('login')}}"> Press here to Log In again. </a>
+        </div>
+
+    {%else %}
+
+        <style>
+            #register a{
+                color:#99ccff;
+            }
+          #register a:hover{
+                text-decoration: none;
+                color:#ffccee;
+            }
+        </style>
+        <div style="margin-left:30%; margin-right:30%; margin-top:10%; background:rgba(64,64,64,0.8); padding:3%; color:white; border-radius: 10px;">
+            <h1>Log In</h1>
+            <div class="login">
+                <form action="{{ url_for('home')}}" method="post">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Username</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="username">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                  </div>
+                  <button type="submit"class="btn btn-outline-warning">Submit</button>
+                </form>
+            </div>
+            <br>
+            <div id="register">
+                <a href="{{ url_for('register') }}">New User? Register Here! </a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+        

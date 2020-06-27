@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+
+{% block head %} {{title}} {% endblock %}
+{% block body %}
+{% if i==1 %}
+    <style>
+        .error{
+            margin:auto;
+            margin-left:30%;
+            margin-right:30%;
+            margin-top:15%;
+            background:rgba(64,64,64,0.8);
+            padding:3%;
+            color:white;
+            border-radius: 10px;
+        }
+    a{
+        color:#99ccff;
+    }
+    .error a:hover{
+            text-decoration: none;
+            color:#d4a03f;
+        }
+    .footer{
+        position:fixed;
+    }
+    </style>
+    <div class="error">
+        <h1> Sorry. You have already posted a review. </h1>
+        <a href="{{url_for('book',isbn=isbn)}}"> Go back </a>
+    </div>
+{% elif i==2 %}
+    <style>
+        .success{
+            margin:auto;
+            margin-left:30%;
+            margin-right:30%;
+            margin-top:15%;
+            background:rgba(64,64,64,0.8);
+            padding:3%;
+            color:white;
+            border-radius: 10px;
+        }
+    a{
+        color:#99ccff;
+    }
+    .success a:hover{
+            text-decoration: none;
+            color:#d4a03f;
+        }
+    .footer{
+        position:fixed;
+    }
+    </style>
+    <div class="success">
+        <h1> You have successfully posted a review. </h1>
+        <a href="{{url_for('book',isbn=isbn)}}"> Press to Continue </a>
+    </div>
+{% else %}
+<div style="display:flex;width:100%; padding:2%;">
+    <div class="bookinfo" style="text-align:center-left; padding: 1%; width:50%; background: rgba(240,240,240,0.6); margin:1%; font-size:20px; border-radius:10px;">
+        <h1>{{book.book_title}}</h1>
+        <p> <b>ISBN Number:</b> {{book.isbn}}</p>
+        <p> <b>Author: </b> {{book.author}}</p>
+        <p> <b>Year published:</b> {{book.year}}</p>
+        <p> <b>Average Rating (From Goodreads):</b> {{avg}} / 5 </p>
+        <p> <b>Number of ratings (From GoodReads) :</b> {{total}}</p>
+    </div>
+
+    <div class="submitreview" style="flex-grow:1; margin:1%; font-size:20px;">
+        <h2> Submit your Review </h2>
+        <form action="{{ url_for('reviewstatus', isbn=book.isbn) }}" method="post">
+           <div id="rating">
+               <i style="margin:1%; font-size:22px;"> Rating: </i>
+                 <div class="form-check form-check-inline">
+                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
+                     <label class="form-check-label" for="inlineRadio1">1</label>
+                 </div>
+                 <div class="form-check form-check-inline">
+                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
+                     <label class="form-check-label" for="inlineRadio2">2</label>
+                 </div>
+                 <div class="form-check form-check-inline">
+                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
+                     <label class="form-check-label" for="inlineRadio3">3</label>
+                 </div>
+                 <div class="form-check form-check-inline">
+                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4">
+                     <label class="form-check-label" for="inlineRadio4">4</label>
+                 </div>
+                 <div class="form-check form-check-inline">
+                     <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="5">
+                     <label class="form-check-label" for="inlineRadio5">5</label>
+                 </div>
+            </div>
+           <textarea cols="40" rows= "5" type="text" name="review" placeholder="Enter Your Review here!" style="margin:1%;"></textarea><br>
+             <button class="btn btn-secondary" style="margin:1%;">Submit</button>
+        </form>
+    </div>
+</div>
+<div class="Reviews my-0 mx-0" style="text-align:center; padding: 2%; font-size:20px;">
+    <h1> Reviews from other Users </h1>
+        {% if review %}
+            {% for r in review %}
+                <p style="background:rgba(230,230,230,0.9); padding:0.75%; margin-bottom:1%; margin-left:30%; margin-right:30%;border-radius:10px;"><b>{{r.first_name}} {{r.last_name}}</b> rated this book {{r.rating}} / 5 <br>@{{r.username}} <br> {{r.review}}</p>
+            {% endfor %}
+            
+        {% else %}
+            <p style="background:rgba(230,230,230,0.9); padding:0.75%; margin-bottom:1%; margin-left:30%; margin-right:30%;border-radius:10px;"> No reviews yet</p>
+            <style>
+                .footer{
+                    position:fixed;
+                }
+            </style>
+        {% endif %}
+        {% if row==1 %}
+            <style>
+                .footer{
+                    position:fixed;
+                }
+            </style>
+        {% endif %}
+</div>
+{% endif %}
+{% endblock %}

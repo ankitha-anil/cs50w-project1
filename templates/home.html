@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block head %} Home {% endblock %}
+
+{% block body %}
+    {% if i==1 %}
+        <style>
+            .error{
+                margin:auto;
+                margin-left:30%;
+                margin-right:30%;
+                margin-top:15%;
+                background:rgba(64,64,64,0.8);
+                padding:3%;
+                color:white;
+                border-radius: 10px;
+            }
+        .footer{
+            position:fixed;
+        }
+        </style>
+        <div class="error">
+            <h1> No such book Available </h1>
+            <p> Sorry! Search again. </p>
+        </div>
+    {% else %}
+        <style>
+            div.info{
+                background: rgba(240, 240, 240, 0.8);
+                padding: 2%;
+                margin: 1%;
+                font-size: 22px;
+                border-radius: 10px;
+                
+            }
+            h1{
+                text-align:center;
+                padding: 2%;
+            }
+            .footer{
+                position:fixed;
+            }
+        </style>
+
+        <h1> Welcome to BooksHere!  </h1>
+        <div class="info">
+            <p> Love reading books but cant seem to find new ones with reviews? BooksHere is an upcoming website that helps you search for books with reliable reviews and ratings and resource of more than 5000 books. Start browsing your favourite titles! </p>
+        </div>
+        <br>
+        <div class="input-group mx-3 col-lg-12">
+            <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg" style="text-align:center; font-weight:bold; font-size: 25px;">Start Browsing!</label>
+            <div class="col-lg-9 mx-3">
+                <form action="{{ url_for('search')}}" method="post">
+                    <input type="text" class="form-control form-control-lg" name="search" id="colFormLabelLg" placeholder="Search for titles, author or isbn">
+                </form>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
