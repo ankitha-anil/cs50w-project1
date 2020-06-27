@@ -1,7 +1,9 @@
 language: python
 python: 3.6
 install: pip install -r requirements.txt
-script: flask run
+script: export FLASK_APP=application.py
+export FLASK_DEBUG=1
+flask run
 
 deploy:
   provider: heroku
