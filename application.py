@@ -77,7 +77,7 @@ def logout():
 @app.route("/search", methods=["POST"])
 def search():
     search="%"+request.form.get("search")+"%"
-    search= search.title
+    search= search.title()
     
     book= db.execute("SELECT * FROM books WHERE isbn LIKE :search OR author LIKE :search OR book_title LIKE :search", {"search": search}).fetchall()
     i=db.execute("SELECT * FROM books WHERE isbn LIKE :search OR author LIKE :search OR book_title LIKE :search", {"search": search}).rowcount
