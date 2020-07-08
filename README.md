@@ -2,7 +2,7 @@
 
 Web Programming with Python and JavaScript
 
-# BooksHere application deployed through Heroku
+### BooksHere application deployed through Heroku
 https://bookshere-app.herokuapp.com
 
 Bookshere is a user-friendly and efficient web application made using HTML, Python, Flask and SQL where you can access information of about 5000 books and add your reviews and ratings as well as access other user's reviews and ratings of any book. 
