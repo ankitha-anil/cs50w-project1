@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 import requests
 import sys
+import logging
 
 app = Flask(__name__)
 app.logger.addHandler(logging.StreamHandler(sys.stdout))
